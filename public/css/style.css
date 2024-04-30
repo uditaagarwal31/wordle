@@ -123,7 +123,7 @@ textarea {
 }
 
 .wrong-sq{
-  color: grey;
+  color: rgb(236, 202, 32);
   animation: animate__flipInX;
 }
 

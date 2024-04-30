@@ -64,7 +64,6 @@ $(()=> {
                 } else if (letter == "ENTER"){
                     console.log("ente!r");
                     checkWord();
-                    // return;
                 } else if (letter == "ERASE"){
                     console.log("erase!r");
                     eraseContent();
@@ -150,7 +149,7 @@ $(()=> {
                     currentSq.style = `background-color: green`;
                   //  currentButtonLetter.style.backgroundColor = "green";
                 } else if (currentWord[i] !== word[i] && word.includes(currentWord[i])){
-                    currentSq.style = `background-color: yellow`;
+                    currentSq.style = `background-color: rgb(236, 202, 32)`;
                   //  currentButtonLetter.style.backgroundColor = "grey";
                 } else {
                     currentSq.style = `background-color: grey`;
@@ -160,7 +159,7 @@ $(()=> {
             if(currentWord[i] === word[i]){
                 currentButtonLetter.style.backgroundColor = "green";
             } else if (currentWord[i] !== word[i] && word.includes(currentWord[i])){
-                currentButtonLetter.style.backgroundColor = "yellow";
+                currentButtonLetter.style.backgroundColor = "rgb(236, 202, 32)";
             } else {
                 currentButtonLetter.style.backgroundColor = "grey";
             }
