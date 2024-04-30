@@ -99,9 +99,14 @@ $(()=> {
     }
 
     function eraseContent(){
-        const sq = document.getElementById(String(letterGuessesCount));
-        sq.textContent = " ";
+        console.log(currentGuessedWord());
+        const currentWord = currentGuessedWord().pop();
+        console.log(currentGuessedWord());
+        const sq = document.getElementById(String(letterGuessesCount-1));
+        sq.textContent = '';
         console.log(sq.textContent);
+        letterGuessesCount--;
+        console.log(letterGuessesCount);
     }
 
     function checkWord(){
