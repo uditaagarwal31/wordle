@@ -8,6 +8,7 @@ $(()=> {
     let letterGuessesCount = 1;
     let randomIndex = Math.floor(Math.random() * 200);
     let word = wordslist[randomIndex];
+    let moves = [];
     
     console.log(randomIndex);
     console.log(word);
@@ -29,6 +30,10 @@ $(()=> {
         }
     }
 
+    function currentGuessedWord(){
+        return guessedWords[guessedWords.length-1];
+    }
+
     function clickableKeys(){
         const keysFirstRow = document.getElementById("firstrow").querySelectorAll("button");
 
@@ -38,6 +43,7 @@ $(()=> {
                 let letter = keysFirstRow[i].id;
                 console.log(letter);
                 updateWord(letter);
+                moves.push(letter);
             });
         }
 
@@ -49,24 +55,36 @@ $(()=> {
                 let letter = keysSecondRow[i].id;
                 console.log(letter);
                 updateWord(letter);
+                moves.push(letter);
             });
         }
 
         const keysThirdRow = document.getElementById("thirdrow").querySelectorAll("button");
+        
 
         for(let i = 0; i < keysThirdRow.length; i++){
-            console.log("hii");
             keysThirdRow[i].addEventListener("click", function() {
+                let currentWord = currentGuessedWord();
+                console.log("currentword", currentWord, currentWord.length);
                 let letter = keysThirdRow[i].id;
+                let lastMove = moves[moves.length-1];
+                console.log("lastmove", lastMove, moves.length);
                 if(letter !== "ENTER" && letter !== "ERASE"){
                     console.log(letter);
                     updateWord(letter);
+                    moves.push(letter);
                 } else if (letter == "ENTER"){
                     console.log("ente!r");
+                    console.log(letterGuessesCount);
                     checkWord();
-                } else if (letter == "ERASE"){
+                    console.log(letterGuessesCount);
+                    moves.push(letter); // if last move is enter but length not 5, last move letter == "ERASE" && (lastMove === "ENTER" && currentWord.length % 5 != 0 )
+                } else if (letter == "ERASE" && (lastMove !== "ENTER" || currentWord.length % 5 != 0 )){ // letter == "ERASE" && lastMove !== "ENTER"
                     console.log("erase!r");
+                    console.log(currentWord.length);
                     eraseContent();
+                    moves.pop();
+                    moves.push(letter);
                 }
 
             
@@ -110,6 +128,9 @@ $(()=> {
 
     function checkWord(){
         const currentWord = currentGuessedWord().join('').toLowerCase();
+        if(currentWord.length !== 5){
+            return;
+        }
         console.log(word);
         console.log(currentWord);
         if(currentWord.length !== 5){ // change this 
@@ -118,17 +139,20 @@ $(()=> {
         if(word === currentWord){
             console.log("same!");
             checkLetters(currentWord);
+            // alert("You won YAY! The correct word is " + word);
         } else {
             console.log("wrong");
             checkLetters(currentWord);
             if(wordGuessesCount < 6){
                 guessedWords.push([]);
-                wordGuessesCount++;
+                
                 console.log("word guess coynt", wordGuessesCount);
             } 
             if(wordGuessesCount == 6){
                 console.log("lost");
+                alert("You lost :( The correct word is " + word);
             }
+            wordGuessesCount++;
         }
 
     }
@@ -137,7 +161,7 @@ $(()=> {
         let startIndex = letterGuessesCount - 5;
         let time = 150;
         let upperCaseCurrentWord = currentWord.toUpperCase();
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < currentWord.length; i++){
             let currentButtonLetter = document.getElementById(upperCaseCurrentWord[i]);
             setTimeout(()=>{
                 let currentSq = document.getElementById(String(startIndex));
