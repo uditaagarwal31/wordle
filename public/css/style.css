@@ -117,6 +117,16 @@ textarea {
   color: #b3d4fc;
 }
 
+.correct-sq{
+  color: rgb(8, 145, 8);
+  animation: animate__flipInX;
+}
+
+.wrong-sq{
+  color: grey;
+  animation: animate__flipInX;
+}
+
 #keyboard-container{
   height: 200px;
   size: 900px;

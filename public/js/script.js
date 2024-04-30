@@ -1,3 +1,5 @@
+
+
 $(()=> {
     const guessedWords = [[]];
     let letterGuessesCount = 1;
@@ -14,6 +16,7 @@ $(()=> {
         for(let i = 0; i < 30; i++){
             let square = document.createElement("div");
             square.classList.add("square");
+            square.classList.add("animate__animated");
             square.setAttribute("id", i+1);
             gameBoard.appendChild(square);
         }
@@ -103,17 +106,36 @@ $(()=> {
         }
         if(word === currentWord){
             console.log("same!");
+            checkLetters(currentWord);
         } else {
             console.log("wrong");
+            checkLetters(currentWord);
             if(wordGuessesCount < 6){
                 guessedWords.push([]);
                 wordGuessesCount++;
                 console.log("word guess coynt", wordGuessesCount);
+            } 
+            if(wordGuessesCount == 6){
+                console.log("lost");
             }
-            
-            
         }
 
+    }
+
+    function checkLetters(currentWord){
+        let startIndex = letterGuessesCount - 5;
+        for(let i = 0; i < 5; i++){
+            let currentSq = document.getElementById(String(startIndex));
+            currentSq.classList.add("animate_flipInX");
+            
+            if(currentWord[i] === word[i]){
+                console.log("match", currentWord[i]);
+                currentSq.style = `background-color: green`;
+            } else {
+                currentSq.style = `background-color: grey`;
+            }
+            startIndex++;
+        }
     }
 
 })
