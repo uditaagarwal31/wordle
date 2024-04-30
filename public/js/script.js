@@ -1,6 +1,9 @@
 $(()=> {
     const guessedWords = [[]];
     let letterGuessesCount = 1;
+    let word = "dairy";
+    let wordGuessesCount = 1;
+
     createSquares();
     clickableKeys();
 
@@ -50,6 +53,8 @@ $(()=> {
                     updateWord(letter);
                 } else if (letter == "ENTER"){
                     console.log("ente!r");
+                    checkWord();
+                    // return;
                 } else if (letter == "ERASE"){
                     console.log("erase!r");
                     eraseContent();
@@ -87,6 +92,28 @@ $(()=> {
         const sq = document.getElementById(String(letterGuessesCount));
         sq.textContent = " ";
         console.log(sq.textContent);
+    }
+
+    function checkWord(){
+        const currentWord = currentGuessedWord().join('').toLowerCase();
+        console.log(word);
+        console.log(currentWord);
+        if(currentWord.length !== 5){ // change this 
+            console.log("wrong length");
+        }
+        if(word === currentWord){
+            console.log("same!");
+        } else {
+            console.log("wrong");
+            if(wordGuessesCount < 6){
+                guessedWords.push([]);
+                wordGuessesCount++;
+                console.log("word guess coynt", wordGuessesCount);
+            }
+            
+            
+        }
+
     }
 
 })
