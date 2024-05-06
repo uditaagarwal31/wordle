@@ -140,7 +140,13 @@ textarea {
   overflow: hidden;
 } 
 
-
+#instructions{
+  display: flex;
+  height: 100px;
+  width: 100px;
+  border: #fff;
+  margin: 10px;
+}
 
 
 
