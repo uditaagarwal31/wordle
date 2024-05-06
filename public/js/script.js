@@ -140,7 +140,9 @@ $(()=> {
         if(word === currentWord){
             console.log("same!");
             checkLetters(currentWord);
-            // alert("You won YAY! The correct word is " + word);
+            setTimeout(()=>{
+                alert("You won YAY! The correct word is " + word);
+            }, 1000);
         } else {
             console.log("wrong");
             checkLetters(currentWord);
